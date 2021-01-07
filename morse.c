@@ -4,6 +4,8 @@
 #include <ctype.h>
 #include <stdio.h>
 
+#define ALPHABET_SIZE 26
+
 static const char* const MorseLookupTable[] = {
         "*- ",
         "-*** ",
@@ -63,7 +65,7 @@ static const char* MorseHelper_GetMorseCodeByLetter(char letter){
 
     int lookupIndex = (int)(letter - 64 - 1);
 
-    return MorseLookupTable[lookupIndex];
+    return (lookupIndex >= 0 && lookupIndex < ALPHABET_SIZE) ? MorseLookupTable[lookupIndex] : " ";
 }
 
 
