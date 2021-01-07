@@ -15,7 +15,7 @@ int main() {
     Morse_TranscriptTextToMorse(textToMorse, morseResultBuffer);
 
     printf("\nTranscripted: %s", morseResultBuffer);
-    printf("\nLength %i", strlen(morseResultBuffer));
+    printf("\nLength: %i", strlen(morseResultBuffer));
 
 
     LED_PerformMorseCode(&m_code);

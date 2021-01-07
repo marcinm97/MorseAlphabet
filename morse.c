@@ -37,11 +37,11 @@ static const char* const MorseLookupTable[] = {
 
 static const char* MorseHelper_GetMorseCodeByLetter(char letter);
 
-const char* Morse_TranscriptTextToMorse(const char* text, char* resultBuffer){
+MorseOperationResult Morse_TranscriptTextToMorse(const char* text, char* resultBuffer){
 
     if(text == NULL || resultBuffer == NULL)
     {
-        return NULL;
+        return ERROR;
     }
 
     for(int i = 0; i < strlen(text); i++)
@@ -51,12 +51,13 @@ const char* Morse_TranscriptTextToMorse(const char* text, char* resultBuffer){
 
         resultBuffer += strlen(morse);
     }
+    return SUCCESS;
 }
 
 static const char* MorseHelper_GetMorseCodeByLetter(char letter){
 
     if(!isalpha(letter))
-        return NULL;
+        return "";
 
     if(!isupper(letter))
     {
@@ -65,7 +66,7 @@ static const char* MorseHelper_GetMorseCodeByLetter(char letter){
 
     int lookupIndex = (int)(letter - 64 - 1);
 
-    return (lookupIndex >= 0 && lookupIndex < ALPHABET_SIZE) ? MorseLookupTable[lookupIndex] : " ";
+    return (lookupIndex >= 0 && lookupIndex < ALPHABET_SIZE) ? MorseLookupTable[lookupIndex] : "";
 }
 
 
@@ -95,6 +96,8 @@ static const MorseLEDPredicate MorseLEDActionTable[3] = {
 void LED_PerformMorseCode(MorseCode* morseCode){
 
     if(morseCode == NULL || morseCode->morse == NULL) return;
+
+    if(morseCode->morse[0] == '\0') return;
 
     for(int index; *morseCode->morse != '\0'; morseCode->morse++)
     {

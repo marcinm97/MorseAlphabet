@@ -1,8 +1,13 @@
 #ifndef MORSEALPHABET_MORSE_H
 #define MORSEALPHABET_MORSE_H
 
+typedef enum MorseOperationResultType{
+    ERROR,
+    SUCCESS
+}MorseOperationResult;
+
 /* Alphabet text to Morse code transcription */
-const char* Morse_TranscriptTextToMorse(const char* text, char* resultBuffer);
+MorseOperationResult Morse_TranscriptTextToMorse(const char* text, char* resultBuffer);
 
 /* Using strong types */
 typedef struct MorseCodeType{
