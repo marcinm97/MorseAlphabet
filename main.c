@@ -6,7 +6,7 @@
 int main() {
 
 
-    const char* textToMorse = "Marcin";
+    const char* textToMorse = "Text";
     char morseResultBuffer[100];
 
     MorseCode m_code;

@@ -73,7 +73,7 @@ static const char* MorseHelper_GetMorseCodeByLetter(char letter){
 /* LED section - coding text */
 
 static void LEDHelper_LitDelay(int delay);
-
+static void LEDHelper_SpecialDelay(int delay);
 typedef void (*Action)(int);
 
 typedef struct MorseLEDPredicateType{
@@ -87,9 +87,9 @@ typedef struct MorseLEDPredicateType{
 // ' ' , 3
 
 static const MorseLEDPredicate MorseLEDActionTable[3] = {
-        {.sign = ' ', .LEDAction = LEDHelper_LitDelay, .delay = 100},
-        {.sign = '-', .LEDAction = LEDHelper_LitDelay, .delay = 300},
-        {.sign = '*', .LEDAction = LEDHelper_LitDelay, .delay = 50}
+        {.sign = ' ', .LEDAction = LEDHelper_SpecialDelay, .delay = 100},
+        {.sign = '-', .LEDAction = LEDHelper_LitDelay,     .delay = 300},
+        {.sign = '*', .LEDAction = LEDHelper_LitDelay,     .delay = 50}
 };
 
 
@@ -104,6 +104,8 @@ void LED_PerformMorseCode(MorseCode* morseCode){
         index = (int)(*morseCode->morse % 4);
         //printf("\n%i", index);
         MorseLEDActionTable[index].LEDAction(MorseLEDActionTable[index].delay);
+
+        //here delay
     }
 
     //(*morse == '*') ? 0 : (*morse == '-') ? 1 : 2
@@ -112,10 +114,14 @@ void LED_PerformMorseCode(MorseCode* morseCode){
 static void LEDHelper_LitDelay(int delay){
     /* toggle led with right delay */
 
-    // printf("\n%i", delay);
+    //printf("\n%i", delay);
     /*
     GPIO_PinOutSet(BSP_GPIO_LED0_PORT, BSP_GPIO_LED0_PIN);
     Delay(delay);
     GPIO_PinOutClear(BSP_GPIO_LED0_PORT, BSP_GPIO_LED0_PIN);
     */
+}
+
+static void LEDHelper_SpecialDelay(int delay){
+    //printf("\n%i", delay);
 }
